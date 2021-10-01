@@ -7,6 +7,8 @@
 "azrtos_threadx\stm32f4xx_hal_msp.o"
 "azrtos_threadx\app_azure_rtos.o"
 "azrtos_threadx\ledtask.o"
+"azrtos_threadx\idle.o"
+"azrtos_threadx\systask.o"
 "azrtos_threadx\stm32f4xx_hal_rcc.o"
 "azrtos_threadx\stm32f4xx_hal_rcc_ex.o"
 "azrtos_threadx\stm32f4xx_hal_flash.o"

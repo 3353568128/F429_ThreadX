@@ -5,4 +5,4 @@ azrtos_threadx/app_azure_rtos.o: ..\AZURE_RTOS\App\app_azure_rtos.c \
   ..\Middlewares\ST\threadx\ports\cortex_m4\ac6\inc\tx_port.h \
   ..\Core\Inc\tx_user.h D:\keil\ 5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
   D:\keil\ 5\ARM\ARMCLANG\Bin\..\include\string.h \
-  ..\AZURE_RTOS\User_App\LEDTask.h
+  ..\AZURE_RTOS\User_App\SYSTask.h

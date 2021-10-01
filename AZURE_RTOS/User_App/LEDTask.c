@@ -11,10 +11,10 @@ static void LEDTASK(ULONG thread_input)
 	{
 		HAL_GPIO_WritePin(GPIOG, GPIO_PIN_7,0);
 		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12,1);
-		tx_thread_sleep(50);
+		tx_thread_sleep(30);
 		HAL_GPIO_WritePin(GPIOG, GPIO_PIN_7,1);
 		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12,0);
-		tx_thread_sleep(50);
+		tx_thread_sleep(30);
 	}
 }
 
