@@ -5,10 +5,12 @@
 #define LEDTASK_POOL_SIZE	1024
 static uint8_t LEDTaskpool[LEDTASK_POOL_SIZE];
 static TX_THREAD LEDTaskHand;
+
 static void LEDTASK(ULONG thread_input)
 {
 	while(1)
 	{
+
 		HAL_GPIO_WritePin(GPIOG, GPIO_PIN_7,0);
 		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12,1);
 		tx_thread_sleep(30);

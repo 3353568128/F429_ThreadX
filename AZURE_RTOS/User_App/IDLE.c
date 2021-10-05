@@ -5,13 +5,13 @@
 #define IDLETASK_POOL_SIZE	512
 static uint8_t IDLETaskpool[IDLETASK_POOL_SIZE];
 static TX_THREAD IDLETaskHand;
-uint32_t CPUcount=0;
+
+volatile uint32_t CPUcount=0;
 static void IDLETASK(ULONG thread_input)
 {
 	while(1)
 	{
 		CPUcount++;
-		tx_thread_sleep(1);
 	}
 }
 
