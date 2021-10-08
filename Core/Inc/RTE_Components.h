@@ -37,6 +37,7 @@
 
 /* Defines ------------------------------------------------------------------*/
 /* STMicroelectronics.X-CUBE-AZRTOS-F4.1.0.0 */
+#define FILEX_ENABLED
 #define THREADX_ENABLED
 
 #endif /* __RTE_COMPONENTS_H__ */
