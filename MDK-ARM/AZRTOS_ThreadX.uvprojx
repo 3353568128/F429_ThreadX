@@ -1712,6 +1712,21 @@
                 </FileArmAds>
               </FileOption>
             </File>
+            <File>
+              <FileName>SDIO.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FileX\App\SDIO.c</FilePath>
+            </File>
+            <File>
+              <FileName>SDIO_drive.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FileX\App\SDIO_drive.c</FilePath>
+            </File>
+            <File>
+              <FileName>SDTask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FileX\App\SDTask.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

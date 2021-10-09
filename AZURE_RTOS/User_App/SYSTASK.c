@@ -4,6 +4,7 @@
 #include "IDLE.h"
 #include "LEDTask.h"
 #include "UART.h"
+#include "SDTask.h"
 
 #define SYSTASK_POOL_SIZE	1024
 static uint8_t SYSTaskpool[SYSTASK_POOL_SIZE];
@@ -23,6 +24,8 @@ static void SYSTASK(ULONG thread_input)
 	
 	LEDTaskCreate();					//用户任务
 	UART1TaskCreate();
+	SDTaskCreate();
+	
 	while(1)
 	{
 		CPUcountOld = CPUcount;

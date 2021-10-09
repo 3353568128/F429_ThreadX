@@ -23,7 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "SDIO.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -53,7 +53,7 @@ UART_HandleTypeDef huart1;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
-static void MX_SDIO_SD_Init(void);
+void MX_SDIO_SD_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -92,9 +92,9 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART1_UART_Init();
-  MX_SDIO_SD_Init();
+//  MX_SDIO_SD_Init();
   /* USER CODE BEGIN 2 */
-
+//	SD_Test();
   /* USER CODE END 2 */
 
   MX_ThreadX_Init();
@@ -157,7 +157,7 @@ void SystemClock_Config(void)
   * @param None
   * @retval None
   */
-static void MX_SDIO_SD_Init(void)
+void MX_SDIO_SD_Init(void)
 {
 
   /* USER CODE BEGIN SDIO_Init 0 */

@@ -1,5 +1,5 @@
-azrtos_threadx/systask.o: ..\AZURE_RTOS\User_App\SYSTASK.c \
-  ..\AZURE_RTOS\User_App\SYSTASK.h ..\Core\Inc\main.h \
+azrtos_threadx/sdio_drive.o: ..\FileX\App\SDIO_drive.c \
+  ..\FileX\App\SDIO_drive.h ..\Core\Inc\main.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
   ..\Core\Inc\stm32f4xx_hal_conf.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \
@@ -38,5 +38,6 @@ azrtos_threadx/systask.o: ..\AZURE_RTOS\User_App\SYSTASK.c \
   ..\Middlewares\ST\threadx\ports\cortex_m4\ac6\inc\tx_port.h \
   ..\Core\Inc\tx_user.h D:\keil\ 5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
   D:\keil\ 5\ARM\ARMCLANG\Bin\..\include\string.h \
-  ..\AZURE_RTOS\User_App\IDLE.h ..\AZURE_RTOS\User_App\LEDTask.h \
-  ..\AZURE_RTOS\User_App\UART.h ..\FileX\App\SDTask.h
+  ..\Middlewares\ST\filex\common\inc\fx_api.h \
+  ..\Middlewares\ST\filex\ports\generic\inc\fx_port.h \
+  ..\FileX\App\fx_user.h ..\FileX\App\SDIO.h
