@@ -39,4 +39,5 @@ azrtos_threadx/sdtask.o: ..\FileX\App\SDTask.c ..\FileX\App\SDTask.h \
   D:\keil\ 5\ARM\ARMCLANG\Bin\..\include\string.h \
   ..\Middlewares\ST\filex\common\inc\fx_api.h \
   ..\Middlewares\ST\filex\ports\generic\inc\fx_port.h \
-  ..\FileX\App\fx_user.h ..\FileX\App\SDIO_drive.h
+  ..\FileX\App\fx_user.h ..\FileX\App\SDIO_drive.h ..\FileX\App\SDIO.h \
+  ..\AZURE_RTOS\User_App\UART.h

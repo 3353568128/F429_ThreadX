@@ -4,6 +4,6 @@
 #include "tx_api.h"
 #include "fx_api.h"
 
-VOID  _fx_sd_spi_driver(FX_MEDIA *media_ptr);
+VOID  F429_SD_SDIO_driver(FX_MEDIA *media_ptr);
 
 #endif

@@ -27,6 +27,34 @@ void UART1TaskCreate()
 	tx_thread_create(&TaskHand, "UART Task", UARTTASK, NULL, Taskpool, TASK_POOL_SIZE, 30, 30, TX_NO_TIME_SLICE, TX_AUTO_START);
 }
 
+uint32_t MyPow(uint8_t x, uint8_t y)
+{
+	uint8_t m = 0;
+	uint32_t temp = 1;
+	
+	for(m=0; m<y; m++)
+		temp = temp*x;
+	
+	return temp;
+}
+
+void PrintfDec(uint32_t vlu)		// vlu < 0x3B9A C9FF
+{
+	int8_t x = 0,y = 0;
+	uint8_t TempBuff[32] = {0}, temp;
+	
+	for(x=8; x>-1; x--)
+	{
+		temp = vlu%MyPow(10,x+1)/MyPow(10,x);
+		if(temp | TempBuff[0])
+		{
+			TempBuff[y] = temp + '0';
+			y++;
+		}
+	}
+
+	PushBuff(TempBuff, strlen((const char *)TempBuff));
+}
 void PrintfHex(uint8_t *addr, uint32_t len)
 {
 	uint8_t temp;

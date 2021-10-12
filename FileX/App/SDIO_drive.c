@@ -4,10 +4,10 @@
 #include "tx_api.h"
 #include "fx_api.h"
 
-UINT  _fx_partition_offset_calculate(void  *partition_sector, UINT partition, ULONG *partition_start, ULONG *partition_size);
+extern UINT  _fx_partition_offset_calculate(void  *partition_sector, UINT partition, ULONG *partition_start, ULONG *partition_size);
 extern void MX_SDIO_SD_Init(void);
 
-VOID  _fx_sd_spi_driver(FX_MEDIA *media_ptr)
+VOID  F429_SD_SDIO_driver(FX_MEDIA *media_ptr)
 {
 	ULONG       boot_start;
 	ULONG       boot_size;

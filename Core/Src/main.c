@@ -23,7 +23,6 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "SDIO.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -94,7 +93,6 @@ int main(void)
   MX_USART1_UART_Init();
 //  MX_SDIO_SD_Init();
   /* USER CODE BEGIN 2 */
-//	SD_Test();
   /* USER CODE END 2 */
 
   MX_ThreadX_Init();
