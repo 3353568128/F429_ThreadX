@@ -91,7 +91,7 @@ static void USBTASK(ULONG thread_input)
 
 
 	/* USB设备协议栈初始化 */    
-	device_framework_full_speed = USBD_Get_Device_Framework_Speed(USBD_FS_SPEED, &device_framework_fs_length);
+	device_framework_full_speed = USBD_Get_Device_Framework_Speed(USBD_FULL_SPEED, &device_framework_fs_length);
 	string_framework = USBD_Get_String_Framework(&string_framework_length);
 	language_id_framework = USBD_Get_Language_Id_Framework(&languge_id_framework_length);
 
@@ -132,9 +132,9 @@ static void USBTASK(ULONG thread_input)
 	}
 
 	/* 设置TX FIFO和RX FIFO */
-	HAL_PCDEx_SetRxFiFo(&hpcd_USB_OTG_HS, 128);
-	HAL_PCDEx_SetTxFiFo(&hpcd_USB_OTG_HS, 0, 64);
-	HAL_PCDEx_SetTxFiFo(&hpcd_USB_OTG_HS, 1, 128);
+	status =  HAL_PCDEx_SetRxFiFo(&hpcd_USB_OTG_HS, 128);
+	status =  HAL_PCDEx_SetTxFiFo(&hpcd_USB_OTG_HS, 0, 64);
+	status =  HAL_PCDEx_SetTxFiFo(&hpcd_USB_OTG_HS, 1, 128);
 
 	/* 注册STM32到USBX协议栈并初始化 */
 	status =  ux_dcd_stm32_initialize((ULONG)USB_OTG_HS, (ULONG)&hpcd_USB_OTG_HS);		
