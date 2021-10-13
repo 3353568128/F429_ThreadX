@@ -253,9 +253,9 @@
         <Bp>
           <Number>6</Number>
           <Type>0</Type>
-          <LineNumber>74</LineNumber>
+          <LineNumber>118</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134236136</Address>
+          <Address>134236232</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -264,7 +264,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>../USBX/App/app_usbx_device.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\AZRTOS_ThreadX\../USBX/App/app_usbx_device.c\74</Expression>
+          <Expression>\\AZRTOS_ThreadX\../USBX/App/app_usbx_device.c\118</Expression>
         </Bp>
         <Bp>
           <Number>7</Number>

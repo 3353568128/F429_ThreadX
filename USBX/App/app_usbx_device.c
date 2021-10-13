@@ -64,11 +64,11 @@
 static UX_SLAVE_CLASS_STORAGE_PARAMETER    storage_parameter;
 static uint8_t usbx_pool[USBX_APP_BYTE_POOL_SIZE];
 
-#define USBTASK_POOL_SIZE	1024
+#define USBTASK_POOL_SIZE	4096
 static uint8_t USBTaskpool[USBTASK_POOL_SIZE];
 static TX_THREAD USBTaskHand;
 
-PCD_HandleTypeDef  hpcd_USB_OTG_FS;
+extern PCD_HandleTypeDef  hpcd_USB_OTG_HS;
 
 static void USBTASK(ULONG thread_input)
 {
@@ -91,7 +91,7 @@ static void USBTASK(ULONG thread_input)
 
 
 	/* USB设备协议栈初始化 */    
-	device_framework_full_speed = USBD_Get_Device_Framework_Speed(USBD_FULL_SPEED, &device_framework_fs_length);
+	device_framework_full_speed = USBD_Get_Device_Framework_Speed(USBD_FS_SPEED, &device_framework_fs_length);
 	string_framework = USBD_Get_String_Framework(&string_framework_length);
 	language_id_framework = USBD_Get_Language_Id_Framework(&languge_id_framework_length);
 
@@ -131,34 +131,19 @@ static void USBTASK(ULONG thread_input)
 			return;
 	}
 
-	memset(&hpcd_USB_OTG_FS, 0x0, sizeof(PCD_HandleTypeDef));
-	hpcd_USB_OTG_FS.Instance = USB_OTG_FS;
-	hpcd_USB_OTG_FS.Init.dev_endpoints = 4;
-	hpcd_USB_OTG_FS.Init.speed = PCD_SPEED_FULL;
-	hpcd_USB_OTG_FS.Init.dma_enable = DISABLE;
-	hpcd_USB_OTG_FS.Init.phy_itface = PCD_PHY_EMBEDDED;
-	hpcd_USB_OTG_FS.Init.Sof_enable = DISABLE;
-	hpcd_USB_OTG_FS.Init.low_power_enable = DISABLE;
-	hpcd_USB_OTG_FS.Init.lpm_enable = DISABLE;
-	hpcd_USB_OTG_FS.Init.vbus_sensing_enable = DISABLE;
-	hpcd_USB_OTG_FS.Init.use_dedicated_ep1 = DISABLE;
-
-	/* 初始化USB  */
-	HAL_PCD_Init(&hpcd_USB_OTG_FS);
-
 	/* 设置TX FIFO和RX FIFO */
-	HAL_PCDEx_SetRxFiFo(&hpcd_USB_OTG_FS, 128);
-	HAL_PCDEx_SetTxFiFo(&hpcd_USB_OTG_FS, 0, 64);
-	HAL_PCDEx_SetTxFiFo(&hpcd_USB_OTG_FS, 1, 128);
+	HAL_PCDEx_SetRxFiFo(&hpcd_USB_OTG_HS, 128);
+	HAL_PCDEx_SetTxFiFo(&hpcd_USB_OTG_HS, 0, 64);
+	HAL_PCDEx_SetTxFiFo(&hpcd_USB_OTG_HS, 1, 128);
 
 	/* 注册STM32到USBX协议栈并初始化 */
-	status =  ux_dcd_stm32_initialize((ULONG)USB_OTG_FS, (ULONG)&hpcd_USB_OTG_FS);		
+	status =  ux_dcd_stm32_initialize((ULONG)USB_OTG_HS, (ULONG)&hpcd_USB_OTG_HS);		
 	if (status != UX_SUCCESS)
 	{
 			return;
 	}
 	
-	HAL_PCD_Start(&hpcd_USB_OTG_FS);
+	HAL_PCD_Start(&hpcd_USB_OTG_HS);
 				
 	while(1)
 	{

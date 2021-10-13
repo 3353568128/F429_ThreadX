@@ -57,20 +57,14 @@
 /* USER CODE END 0 */
 
 /* USER CODE BEGIN 1 */
-UINT  app_usb_device_thread_media_read(VOID *storage, ULONG lun,
-                                       UCHAR *data_pointer,
-                                       ULONG number_blocks,
-                                       ULONG lba, ULONG *media_status)
+UINT  app_usb_device_thread_media_read(VOID *storage, ULONG lun, UCHAR *data_pointer, ULONG number_blocks, ULONG lba, ULONG *media_status)
 {
 	HAL_SD_ReadBlocks(&hsd, data_pointer, lba, number_blocks,10);
 	while(HAL_SD_GetCardState(&hsd) != HAL_SD_CARD_TRANSFER);
 	return 0;
 }
 
-UINT  app_usb_device_thread_media_write(VOID *storage, ULONG lun,
-                                        UCHAR *data_pointer,
-                                        ULONG number_blocks,
-                                        ULONG lba, ULONG *media_status)
+UINT  app_usb_device_thread_media_write(VOID *storage, ULONG lun, UCHAR *data_pointer, ULONG number_blocks, ULONG lba, ULONG *media_status)
 {
 	HAL_SD_WriteBlocks(&hsd, data_pointer, lba, number_blocks,10);
 	while(HAL_SD_GetCardState(&hsd) != HAL_SD_CARD_TRANSFER);
@@ -79,8 +73,6 @@ UINT  app_usb_device_thread_media_write(VOID *storage, ULONG lun,
 
 UINT  app_usb_device_thread_media_status(VOID *storage, ULONG lun, ULONG media_id, ULONG *media_status)
 {
-
-    /* The ATA drive never fails. This is just for demo only !!!! */
     return(UX_SUCCESS);
 }
 /* USER CODE END 1 */
