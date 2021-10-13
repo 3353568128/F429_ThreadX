@@ -42,4 +42,10 @@ azrtos_threadx/systask.o: ..\AZURE_RTOS\User_App\SYSTASK.c \
   ..\Core\Inc\tx_user.h D:\keil\ 5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
   D:\keil\ 5\ARM\ARMCLANG\Bin\..\include\string.h \
   ..\AZURE_RTOS\User_App\IDLE.h ..\AZURE_RTOS\User_App\LEDTask.h \
-  ..\AZURE_RTOS\User_App\UART.h ..\FileX\App\SDTask.h
+  ..\AZURE_RTOS\User_App\UART.h ..\FileX\App\SDTask.h \
+  ..\USBX\App\app_usbx_device.h \
+  ..\Middlewares\ST\usbx\common\core\inc\ux_api.h \
+  ..\Middlewares\ST\usbx\ports\generic\inc\ux_port.h \
+  ..\USBX\App\ux_user.h D:\keil\ 5\ARM\ARMCLANG\Bin\..\include\stdio.h \
+  ..\Middlewares\ST\usbx\common\core\inc\ux_utility.h \
+  ..\Middlewares\ST\usbx\common\core\inc\ux_system.h

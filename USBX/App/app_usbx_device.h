@@ -61,7 +61,7 @@ UINT MX_USBX_Device_Init(VOID *memory_ptr);
 /* USER CODE END PD */
 
 /* USER CODE BEGIN 1 */
-
+void USBTaskCreate();
 /* USER CODE END 1 */
 
 #ifdef __cplusplus
