@@ -7,4 +7,10 @@ azrtos_threadx/app_azure_rtos.o: ..\AZURE_RTOS\App\app_azure_rtos.c \
   D:\keil\ 5\ARM\ARMCLANG\Bin\..\include\string.h \
   ..\FileX\App\app_filex.h ..\Middlewares\ST\filex\common\inc\fx_api.h \
   ..\Middlewares\ST\filex\ports\generic\inc\fx_port.h \
-  ..\FileX\App\fx_user.h ..\AZURE_RTOS\User_App\SYSTask.h
+  ..\FileX\App\fx_user.h ..\USBX\App\app_usbx_device.h \
+  ..\Middlewares\ST\usbx\common\core\inc\ux_api.h \
+  ..\Middlewares\ST\usbx\ports\generic\inc\ux_port.h \
+  ..\USBX\App\ux_user.h D:\keil\ 5\ARM\ARMCLANG\Bin\..\include\stdio.h \
+  ..\Middlewares\ST\usbx\common\core\inc\ux_utility.h \
+  ..\Middlewares\ST\usbx\common\core\inc\ux_system.h \
+  ..\AZURE_RTOS\User_App\SYSTask.h
