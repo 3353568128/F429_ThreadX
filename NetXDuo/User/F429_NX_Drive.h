@@ -12,11 +12,6 @@
 #define NX_DRIVER_ETHERNET_ARP                  0x0806
 #define NX_DRIVER_ETHERNET_RARP                 0x8035
 
-#define NX_DRIVER_ETHERNET_HEADER_REMOVE(p) \
-{ \
-	p -> nx_packet_prepend_ptr =  p -> nx_packet_prepend_ptr + NX_DRIVER_ETHERNET_FRAME_SIZE;  \
-	p -> nx_packet_length =  p -> nx_packet_length - NX_DRIVER_ETHERNET_FRAME_SIZE;   				 \
-} 
 
 VOID  nx_driver_stm32f429(NX_IP_DRIVER *driver_req_ptr);
 

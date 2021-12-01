@@ -250,7 +250,8 @@ VOID	_nx_driver_packet_transmitted(VOID)
 		
 		if ((ETH_DMATxDescTab[idx].Status & ETH_DMATXDESC_OWN) == 0)			//idx也指向 帧尾 的描述符，该判断语句表示帧尾发送完成，表明整个帧都发送完成
 		{
-			NX_DRIVER_ETHERNET_HEADER_REMOVE(f429_nx_driver_information.nx_packets_send[idx]);
+			f429_nx_driver_information.nx_packets_send[idx] -> nx_packet_prepend_ptr =  f429_nx_driver_information.nx_packets_send[idx] -> nx_packet_prepend_ptr + NX_DRIVER_ETHERNET_FRAME_SIZE;  
+			f429_nx_driver_information.nx_packets_send[idx] -> nx_packet_length =  f429_nx_driver_information.nx_packets_send[idx] -> nx_packet_length - NX_DRIVER_ETHERNET_FRAME_SIZE;   				 
 			nx_packet_transmit_release(f429_nx_driver_information.nx_packets_send[idx]);
 			f429_nx_driver_information.nx_packets_send[idx] = NX_NULL;
 			
