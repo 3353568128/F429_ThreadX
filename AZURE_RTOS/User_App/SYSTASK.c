@@ -35,7 +35,9 @@ static void SYSTASK(ULONG thread_input)
 	}
 }
 
+extern void PingTest(void);
 void SYSTaskCreate()
 {
 	tx_thread_create(&SYSTaskHand, "SYSTEM Task", SYSTASK, NULL, SYSTaskpool, SYSTASK_POOL_SIZE, 2, 2, TX_NO_TIME_SLICE, TX_AUTO_START);
+	PingTest();
 }
