@@ -5,6 +5,7 @@
 #include "LEDTask.h"
 #include "UART.h"
 #include "Test.h"
+#include "GX_Task.h"
 
 #define SYSTASK_POOL_SIZE	1024
 static uint8_t SYSTaskpool[SYSTASK_POOL_SIZE];
@@ -24,7 +25,8 @@ static void SYSTASK(ULONG thread_input)
 	
 	LEDTaskCreate();					//用户任务
 	UART1TaskCreate();
-	TestTaskCreate();
+	GX_TaskCreate();
+	
 	while(1)
 	{
 		CPUcountOld = CPUcount;

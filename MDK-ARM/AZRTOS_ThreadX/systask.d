@@ -43,4 +43,13 @@ azrtos_threadx/systask.o: ..\AZURE_RTOS\User_App\SYSTASK.c \
   D:\keil\ 5\ARM\ARMCLANG\Bin\..\include\string.h \
   ..\AZURE_RTOS\User_App\IDLE.h ..\AZURE_RTOS\User_App\LEDTask.h \
   ..\AZURE_RTOS\User_App\UART.h ..\AZURE_RTOS\User_App\Test.h \
-  ..\BSP\DMA2D.h ..\BSP\touch_480x272.h ..\BSP\touch_iic.h
+  ..\BSP\DMA2D.h ..\BSP\touch_480x272.h ..\BSP\touch_iic.h \
+  ..\AZURE_RTOS\User_App\GX_Task.h \
+  ..\Middlewares\ST\GuiX\ports\inc\F429_GX_Drive.h \
+  ..\Middlewares\ST\GuiX\common\inc\gx_api.h \
+  ..\Middlewares\ST\GuiX\ports\inc\gx_port.h \
+  ..\Middlewares\ST\GuiX\common\inc\gx_system.h \
+  ..\Middlewares\ST\GuiX\common\inc\gx_display.h \
+  ..\Middlewares\ST\GuiX\common\inc\gx_utility.h \
+  ..\GUIX_Studio\guiapp_specifications.h \
+  ..\GUIX_Studio\guiapp_resources.h
