@@ -27,6 +27,8 @@ azrtos_threadx/systask.o: ..\AZURE_RTOS\User_App\SYSTASK.c \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ramfunc.h \
+  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_sdram.h \
+  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_ll_fmc.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h \
@@ -37,4 +39,4 @@ azrtos_threadx/systask.o: ..\AZURE_RTOS\User_App\SYSTASK.c \
   ..\Core\Inc\tx_user.h D:\keil\ 5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
   D:\keil\ 5\ARM\ARMCLANG\Bin\..\include\string.h \
   ..\AZURE_RTOS\User_App\IDLE.h ..\AZURE_RTOS\User_App\LEDTask.h \
-  ..\AZURE_RTOS\User_App\UART.h
+  ..\AZURE_RTOS\User_App\UART.h ..\AZURE_RTOS\User_App\Test.h

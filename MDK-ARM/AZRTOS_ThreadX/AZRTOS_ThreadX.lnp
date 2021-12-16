@@ -9,8 +9,10 @@
 "azrtos_threadx\ledtask.o"
 "azrtos_threadx\idle.o"
 "azrtos_threadx\systask.o"
-"azrtos_threadx\app_azure_rtos.o"
 "azrtos_threadx\uart.o"
+"azrtos_threadx\app_azure_rtos.o"
+"azrtos_threadx\test.o"
+"azrtos_threadx\stm32f4xx_ll_fmc.o"
 "azrtos_threadx\stm32f4xx_hal_rcc.o"
 "azrtos_threadx\stm32f4xx_hal_rcc_ex.o"
 "azrtos_threadx\stm32f4xx_hal_flash.o"
@@ -24,6 +26,7 @@
 "azrtos_threadx\stm32f4xx_hal_cortex.o"
 "azrtos_threadx\stm32f4xx_hal.o"
 "azrtos_threadx\stm32f4xx_hal_exti.o"
+"azrtos_threadx\stm32f4xx_hal_sdram.o"
 "azrtos_threadx\stm32f4xx_hal_tim.o"
 "azrtos_threadx\stm32f4xx_hal_tim_ex.o"
 "azrtos_threadx\stm32f4xx_hal_uart.o"
@@ -191,6 +194,7 @@
 "azrtos_threadx\txe_timer_deactivate.o"
 "azrtos_threadx\txe_timer_delete.o"
 "azrtos_threadx\txe_timer_info_get.o"
+"azrtos_threadx\sdram.o"
 --strict --scatter "AZRTOS_ThreadX\AZRTOS_ThreadX.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

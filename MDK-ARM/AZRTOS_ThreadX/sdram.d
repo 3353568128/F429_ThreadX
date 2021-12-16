@@ -1,5 +1,4 @@
-azrtos_threadx/uart.o: ..\AZURE_RTOS\User_App\UART.c \
-  ..\AZURE_RTOS\User_App\UART.h ..\Core\Inc\main.h \
+azrtos_threadx/sdram.o: ..\BSP\SDRAM.c ..\BSP\SDRAM.h ..\Core\Inc\main.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
   ..\Core\Inc\stm32f4xx_hal_conf.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \
@@ -33,8 +32,4 @@ azrtos_threadx/uart.o: ..\AZURE_RTOS\User_App\UART.c \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
-  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
-  ..\Middlewares\ST\threadx\common\inc\tx_api.h \
-  ..\Middlewares\ST\threadx\ports\cortex_m4\ac6\inc\tx_port.h \
-  ..\Core\Inc\tx_user.h D:\keil\ 5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
-  D:\keil\ 5\ARM\ARMCLANG\Bin\..\include\string.h
+  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h
