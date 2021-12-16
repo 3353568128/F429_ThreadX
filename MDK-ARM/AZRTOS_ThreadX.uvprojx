@@ -1826,6 +1826,16 @@
               <FileType>1</FileType>
               <FilePath>..\BSP\DMA2D.c</FilePath>
             </File>
+            <File>
+              <FileName>touch_iic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\touch_iic.c</FilePath>
+            </File>
+            <File>
+              <FileName>touch_480x272.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\touch_480x272.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

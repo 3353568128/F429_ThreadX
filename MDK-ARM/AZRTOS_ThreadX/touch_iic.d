@@ -1,9 +1,4 @@
-azrtos_threadx/test.o: ..\AZURE_RTOS\User_App\Test.c \
-  ..\AZURE_RTOS\User_App\Test.h ..\Core\Inc\main.h \
-  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
-  ..\Core\Inc\stm32f4xx_hal_conf.h \
-  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \
-  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h \
+azrtos_threadx/touch_iic.o: ..\BSP\touch_iic.c ..\BSP\touch_iic.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f429xx.h \
   ..\Drivers\CMSIS\Include\core_cm4.h \
@@ -15,6 +10,10 @@ azrtos_threadx/test.o: ..\AZURE_RTOS\User_App\Test.c \
   D:\keil\ 5\ARM\ARMCLANG\Bin\..\include\arm_acle.h \
   ..\Drivers\CMSIS\Include\mpu_armv7.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h \
+  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
+  ..\Core\Inc\stm32f4xx_hal_conf.h \
+  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \
+  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h \
   D:\keil\ 5\ARM\ARMCLANG\Bin\..\include\stddef.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc_ex.h \
@@ -36,9 +35,4 @@ azrtos_threadx/test.o: ..\AZURE_RTOS\User_App\Test.c \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
-  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
-  ..\Middlewares\ST\threadx\common\inc\tx_api.h \
-  ..\Middlewares\ST\threadx\ports\cortex_m4\ac6\inc\tx_port.h \
-  ..\Core\Inc\tx_user.h D:\keil\ 5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
-  D:\keil\ 5\ARM\ARMCLANG\Bin\..\include\string.h ..\BSP\DMA2D.h \
-  ..\BSP\touch_480x272.h ..\BSP\touch_iic.h
+  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h

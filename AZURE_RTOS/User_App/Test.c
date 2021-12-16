@@ -10,6 +10,9 @@ uint32_t x = 0, ErrCount = 0;
 void LTDCTest(ULONG thread_input)
 {
 	wp = (uint32_t *)SDRAMBASEADDR;
+	
+	Touch_Init();		//´¥ÃþIO³õÊ¼»¯
+	
 	for(x=0; x<0x40000; x++)
 	{
 		wp[x] = 0xff00ffff;
@@ -19,6 +22,7 @@ void LTDCTest(ULONG thread_input)
 	
 	while(1)
 	{
+		Touch_Scan();
 		tx_thread_sleep(10);
 	}
 }

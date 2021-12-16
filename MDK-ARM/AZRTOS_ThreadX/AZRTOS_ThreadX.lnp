@@ -200,6 +200,8 @@
 "azrtos_threadx\txe_timer_info_get.o"
 "azrtos_threadx\sdram.o"
 "azrtos_threadx\dma2d.o"
+"azrtos_threadx\touch_iic.o"
+"azrtos_threadx\touch_480x272.o"
 --strict --scatter "AZRTOS_ThreadX\AZRTOS_ThreadX.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

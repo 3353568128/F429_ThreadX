@@ -3,6 +3,7 @@
 #include "main.h"
 #include "tx_api.h"
 #include "DMA2D.h"
+#include "touch_480x272.h"
 
 void TestTaskCreate();
 

@@ -43,4 +43,4 @@ azrtos_threadx/systask.o: ..\AZURE_RTOS\User_App\SYSTASK.c \
   D:\keil\ 5\ARM\ARMCLANG\Bin\..\include\string.h \
   ..\AZURE_RTOS\User_App\IDLE.h ..\AZURE_RTOS\User_App\LEDTask.h \
   ..\AZURE_RTOS\User_App\UART.h ..\AZURE_RTOS\User_App\Test.h \
-  ..\BSP\DMA2D.h
+  ..\BSP\DMA2D.h ..\BSP\touch_480x272.h ..\BSP\touch_iic.h
