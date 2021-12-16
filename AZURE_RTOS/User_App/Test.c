@@ -15,6 +15,8 @@ void LTDCTest(ULONG thread_input)
 		wp[x] = 0xff00ffff;
 	}
 	
+	_DMA2D_Fill((void *)(SDRAMBASEADDR+30*480*4+30*4), 480-50, 50, 50, 0xff0000ff, LTDC_PIXEL_FORMAT_ARGB8888);
+	
 	while(1)
 	{
 		tx_thread_sleep(10);

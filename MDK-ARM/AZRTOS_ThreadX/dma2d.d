@@ -1,5 +1,4 @@
-azrtos_threadx/stm32f4xx_hal_tim_ex.o: \
-  ..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c \
+azrtos_threadx/dma2d.o: ..\BSP\DMA2D.c ..\BSP\DMA2D.h ..\Core\Inc\main.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
   ..\Core\Inc\stm32f4xx_hal_conf.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \

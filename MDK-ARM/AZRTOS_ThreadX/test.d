@@ -24,6 +24,7 @@ azrtos_threadx/test.o: ..\AZURE_RTOS\User_App\Test.c \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_dma.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_dma_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_cortex.h \
+  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_dma2d.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ramfunc.h \
@@ -39,4 +40,4 @@ azrtos_threadx/test.o: ..\AZURE_RTOS\User_App\Test.c \
   ..\Middlewares\ST\threadx\common\inc\tx_api.h \
   ..\Middlewares\ST\threadx\ports\cortex_m4\ac6\inc\tx_port.h \
   ..\Core\Inc\tx_user.h D:\keil\ 5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
-  D:\keil\ 5\ARM\ARMCLANG\Bin\..\include\string.h
+  D:\keil\ 5\ARM\ARMCLANG\Bin\..\include\string.h ..\BSP\DMA2D.h
