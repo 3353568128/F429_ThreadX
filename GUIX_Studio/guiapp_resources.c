@@ -6,7 +6,7 @@
 /*  Studio User Guide, or visit our web site at azure.com/rtos                 */
 /*                                                                             */
 /*  GUIX Studio Revision 6.1.9.1                                               */
-/*  Date (dd.mm.yyyy): 17.12.2021   Time (hh:mm): 16:05                        */
+/*  Date (dd.mm.yyyy): 17.12.2021   Time (hh:mm): 16:21                        */
 /*******************************************************************************/
 
 
@@ -313,10 +313,11 @@ GX_CONST GX_UBYTE display_1_STRING_8_English[] = "checkbox";
 GX_CONST GX_UBYTE display_1_STRING_9_English[] = "multi\rline\rbutton";
 GX_CONST GX_UBYTE display_1_STRING_10_English[] = "rich_text_view";
 GX_CONST GX_UBYTE display_1_STRING_11_English[] = "menu";
+GX_CONST GX_UBYTE display_1_STRING_12_English[] = "back";
 
 /* String Table for display_1 language English                                 */
 
-GX_CONST GX_STRING display_1_English_string_table[12] =
+GX_CONST GX_STRING display_1_English_string_table[13] =
 {
     {GX_NULL, 0},
     {(GX_CONST GX_CHAR *)display_1_STRING_1_English, sizeof(display_1_STRING_1_English) - 1},
@@ -329,7 +330,8 @@ GX_CONST GX_STRING display_1_English_string_table[12] =
     {(GX_CONST GX_CHAR *)display_1_STRING_8_English, sizeof(display_1_STRING_8_English) - 1},
     {(GX_CONST GX_CHAR *)display_1_STRING_9_English, sizeof(display_1_STRING_9_English) - 1},
     {(GX_CONST GX_CHAR *)display_1_STRING_10_English, sizeof(display_1_STRING_10_English) - 1},
-    {(GX_CONST GX_CHAR *)display_1_STRING_11_English, sizeof(display_1_STRING_11_English) - 1}
+    {(GX_CONST GX_CHAR *)display_1_STRING_11_English, sizeof(display_1_STRING_11_English) - 1},
+    {(GX_CONST GX_CHAR *)display_1_STRING_12_English, sizeof(display_1_STRING_12_English) - 1}
 };
 
 /*  Language Table                                                             */

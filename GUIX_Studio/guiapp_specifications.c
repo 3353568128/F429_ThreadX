@@ -6,7 +6,7 @@
 /*  GUIX Studio User Guide, or visit our web site at azure.com/rtos            */
 /*                                                                             */
 /*  GUIX Studio Revision 6.1.9.1                                               */
-/*  Date (dd.mm.yyyy): 17.12.2021   Time (hh:mm): 16:05                        */
+/*  Date (dd.mm.yyyy): 17.12.2021   Time (hh:mm): 16:21                        */
 /*******************************************************************************/
 
 
@@ -16,6 +16,7 @@
 #include "guiapp_specifications.h"
 
 static GX_WIDGET *gx_studio_nested_widget_create(GX_BYTE *control, GX_CONST GX_STUDIO_WIDGET *definition, GX_WIDGET *parent);
+WINDOW_1_CONTROL_BLOCK window_1;
 WINDOW_CONTROL_BLOCK window;
 GX_DISPLAY display_1_control_block;
 GX_WINDOW_ROOT display_1_root_window;
@@ -43,6 +44,297 @@ GX_STUDIO_DISPLAY_INFO guiapp_display_table[1] =
     0                                        /* rotation angle                 */
     }
 };
+
+static VOID gx_studio_screen_toggle(GX_WIDGET *target1, GX_WIDGET *target2)
+{
+    GX_WIDGET *parent = target1->gx_widget_parent;
+    if (parent)
+    {
+        gx_widget_detach(target1);
+        gx_widget_attach(parent, target2);
+        if (target1->gx_widget_status & GX_STATUS_STUDIO_CREATED)
+        {
+            gx_widget_delete(target1);
+        }
+    }
+}
+
+static GX_WIDGET *gx_studio_action_target_get(GX_WIDGET *current, GX_CONST GX_STUDIO_ACTION *action)
+{
+    GX_WIDGET *parent = GX_NULL;
+    GX_WIDGET *target = GX_NULL;
+    INT        search_depth;
+    GX_STUDIO_WIDGET *widget_define;
+
+    if (action->flags & GX_ACTION_FLAG_DYNAMIC_TARGET)
+    {
+                                             /* dynamically create the target widget */
+        widget_define = (GX_STUDIO_WIDGET *) action->target;
+        if(action->flags & GX_ACTION_FLAG_DYNAMIC_PARENT)
+        {
+            gx_window_root_find(current, (GX_WINDOW_ROOT **)&parent);
+            search_depth = GX_SEARCH_DEPTH_INFINITE;
+        }
+        else
+        {
+            parent = (GX_WIDGET *)action->parent;
+            search_depth = 1;
+        }
+        gx_widget_find(parent, widget_define->widget_id, search_depth, &target);
+        if (target == GX_NULL)
+        {
+            target = gx_studio_widget_create(GX_NULL, widget_define, GX_NULL);
+        }
+        if (target)
+        {
+            target->gx_widget_status |= GX_STATUS_STUDIO_CREATED;
+        }
+    }
+    else
+    {
+        target = (GX_WIDGET *) action->target;
+    }
+    return target;
+}
+
+static GX_WIDGET *gx_studio_action_target_find(GX_WIDGET *current, GX_CONST GX_STUDIO_ACTION *action)
+{
+    GX_WIDGET *parent = GX_NULL;
+    GX_WIDGET *target = GX_NULL;
+    GX_STUDIO_WIDGET *widget_define;
+
+    if (action->flags & GX_ACTION_FLAG_DYNAMIC_TARGET)
+    {
+                                             /* Find the dynamically created target */
+        widget_define = (GX_STUDIO_WIDGET *) action->target;
+        if(action->flags & GX_ACTION_FLAG_DYNAMIC_PARENT)
+        {
+            gx_window_root_find(current, (GX_WINDOW_ROOT **)&parent);
+        }
+        else
+        {
+            parent = (GX_WIDGET *)action->parent;
+        }
+        gx_widget_find(parent, widget_define->widget_id, GX_SEARCH_DEPTH_INFINITE, &target);
+    }
+    else
+    {
+        target = (GX_WIDGET *) action->target;
+    }
+    return target;
+}
+
+static GX_WIDGET *gx_studio_action_parent_find(GX_WIDGET *current, GX_CONST GX_STUDIO_ACTION *action)
+{
+GX_WIDGET *parent = GX_NULL;
+GX_STUDIO_WIDGET *widget_define;
+
+    if (action->flags & GX_ACTION_FLAG_DYNAMIC_PARENT)
+    {
+                                             /* Find the dynamically created target */
+        widget_define = (GX_STUDIO_WIDGET *)action->parent; 
+        gx_window_root_find(current, (GX_WINDOW_ROOT **)&parent); 
+        gx_widget_find(parent, widget_define->widget_id, GX_SEARCH_DEPTH_INFINITE, &parent); 
+    }
+    else
+    {
+        parent = (GX_WIDGET *)action->parent; 
+    }
+    return parent; 
+}
+
+static VOID gx_studio_animation_execute(GX_WIDGET *current, GX_CONST GX_STUDIO_ACTION *action)
+{
+    GX_ANIMATION *animation;
+    GX_ANIMATION_INFO animation_info;
+    GX_WIDGET *parent = GX_NULL;
+    GX_WIDGET *target = GX_NULL;
+    gx_system_animation_get(&animation);
+    if (animation)
+    {
+        animation_info = *action->animation;
+
+        if((action->flags & GX_ACTION_FLAG_POP_TARGET) ||
+           (action->flags & GX_ACTION_FLAG_POP_PARENT))
+        {
+            gx_system_screen_stack_get((GX_WIDGET **)&parent, &target);
+        }
+
+        if(action->flags & GX_ACTION_FLAG_POP_TARGET)
+        {
+            animation_info.gx_animation_target = target;
+        }
+
+        if(action->flags & GX_ACTION_FLAG_POP_PARENT)
+        {
+            animation_info.gx_animation_parent = (GX_WIDGET *)parent;
+        }
+
+        if ((!animation_info.gx_animation_target) &&
+            (action->flags & GX_ACTION_FLAG_DYNAMIC_TARGET))
+        {
+            target = gx_studio_action_target_get(current, action);
+            animation_info.gx_animation_target = target;
+        }
+
+        if (!animation_info.gx_animation_parent)
+        {
+            animation_info.gx_animation_parent = gx_studio_action_parent_find(current, action);
+        }
+
+        if (animation_info.gx_animation_target &&
+            animation_info.gx_animation_parent)
+        {
+            gx_animation_start(animation, &animation_info);
+        }
+    }
+}
+
+UINT gx_studio_auto_event_handler(GX_WIDGET *widget, GX_EVENT *event_ptr, GX_CONST GX_STUDIO_EVENT_PROCESS *record)
+{
+    UINT status = GX_SUCCESS;
+    GX_CONST GX_STUDIO_ACTION *action;
+    GX_CONST GX_WIDGET *parent = GX_NULL;
+    GX_WIDGET *target = GX_NULL;
+    GX_CONST GX_STUDIO_EVENT_ENTRY *entry = record->event_table;
+
+    while(entry->event_type)
+    {
+        if (entry->event_type == event_ptr->gx_event_type)
+        {
+            if((entry->event_type == GX_EVENT_ANIMATION_COMPLETE) &&
+               (entry->event_sender != event_ptr->gx_event_sender))
+            {
+                entry++;
+                continue;
+            }
+            action = entry->action_list;
+
+            while(action->opcode)
+            {
+                switch(action->opcode)
+                {
+                case GX_ACTION_TYPE_ATTACH:
+                    if((action->flags & GX_ACTION_FLAG_POP_TARGET) ||
+                       (action->flags & GX_ACTION_FLAG_POP_PARENT))
+                    {
+                        gx_system_screen_stack_get((GX_WIDGET **)&parent, &target);
+                    }
+
+                    if(!(action->flags & GX_ACTION_FLAG_POP_PARENT))
+                    {
+                        parent = action->parent;
+                    }
+                    if(!(action->flags & GX_ACTION_FLAG_POP_TARGET))
+                    {
+                        target = gx_studio_action_target_get(widget, action);
+                    }
+                    if (parent && target)
+                    {
+                        gx_widget_attach(parent, target);
+                    }
+                    break;
+
+                case GX_ACTION_TYPE_DETACH:
+                    target = gx_studio_action_target_find(widget, action);
+                    if (target)
+                    {
+                        gx_widget_detach(target);
+                        if (target->gx_widget_status & GX_STATUS_STUDIO_CREATED)
+                        {
+                            gx_widget_delete(target);
+                        }
+                    }
+                    break;
+
+                case GX_ACTION_TYPE_TOGGLE:
+                    if(action->flags & GX_ACTION_FLAG_POP_TARGET)
+                    {
+                       gx_system_screen_stack_get(GX_NULL, &target);
+                    }
+                    else
+                    {
+                        target = gx_studio_action_target_get(widget, action);
+                    }
+                    gx_studio_screen_toggle(widget, target);
+                    break;
+
+                case GX_ACTION_TYPE_SHOW:
+                    target = gx_studio_action_target_get(widget, action);
+                    if(target)
+                    {
+                        gx_widget_show(target);
+                    }
+                    break;
+
+                case GX_ACTION_TYPE_HIDE:
+                    target = gx_studio_action_target_find(widget, action);
+                    if(target)
+                    {
+                        gx_widget_hide(target);
+                    }
+                    break;
+
+                case GX_ACTION_TYPE_ANIMATION:
+                    gx_studio_animation_execute(widget, action);
+                    break;
+
+                case GX_ACTION_TYPE_WINDOW_EXECUTE:
+                    if((action->flags & GX_ACTION_FLAG_POP_TARGET) ||
+                       (action->flags & GX_ACTION_FLAG_POP_PARENT))
+                    {
+                        gx_system_screen_stack_get((GX_WIDGET **)&parent, &target);
+                    }
+
+                    if(!(action->flags & GX_ACTION_FLAG_POP_PARENT))
+                    {
+                        parent = widget->gx_widget_parent;
+                    }
+                    if(!(action->flags & GX_ACTION_FLAG_POP_TARGET))
+                    {
+                        target = gx_studio_action_target_get(widget, action);
+                    }
+                    if (parent && target)
+                    {
+                        gx_widget_attach(parent, target);
+                        gx_window_execute((GX_WINDOW *) target, GX_NULL);
+                    }
+                    break;
+
+                case GX_ACTION_TYPE_WINDOW_EXECUTE_STOP:
+                    return event_ptr->gx_event_sender;
+
+                case GX_ACTION_TYPE_SCREEN_STACK_PUSH:
+                    target = gx_studio_action_target_get(widget, action);
+                    if(target)
+                    {
+                        gx_system_screen_stack_push(target);
+                    }
+                    break;
+
+                case GX_ACTION_TYPE_SCREEN_STACK_POP:
+                    gx_system_screen_stack_pop();
+                    break;
+
+                case GX_ACTION_TYPE_SCREEN_STACK_RESET:
+                    gx_system_screen_stack_reset();
+                    break;
+
+                default:
+                    break;
+                }
+                action++;
+            }
+        }
+        entry++;
+    }
+
+    if (record->chain_event_handler)
+    {
+        status = record->chain_event_handler(widget, event_ptr);
+    }
+    return status;
+}
 
 
 UINT gx_studio_text_button_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent)
@@ -136,6 +428,20 @@ UINT gx_studio_progress_bar_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *c
     return status;
 }
 
+UINT gx_studio_radial_progress_bar_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent)
+{
+    UINT status;
+    GX_RADIAL_PROGRESS_BAR *bar = (GX_RADIAL_PROGRESS_BAR *) control_block;
+    GX_RADIAL_PROGRESS_BAR_INFO *bar_info = (GX_RADIAL_PROGRESS_BAR_INFO *) info->properties;
+    status = gx_radial_progress_bar_create(bar,
+                    info->widget_name,
+                    parent,
+                    bar_info,
+                    info->style,
+                    info->widget_id);
+    return status;
+}
+
 UINT gx_studio_prompt_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent)
 {
     UINT status;
@@ -188,6 +494,132 @@ UINT gx_studio_line_chart_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *con
     status = gx_line_chart_create(chart, info->widget_name, parent, chart_info, info->style, info->widget_id, &info->size);
     return status;
 }
+GX_WINDOW_PROPERTIES window_1_properties =
+{
+    0                                        /* wallpaper pixelmap id          */
+};
+GX_TEXT_BUTTON_PROPERTIES window_1_button_2_properties =
+{
+    GX_STRING_ID_STRING_12,                  /* string id                      */
+    GX_FONT_ID_BUTTON,                       /* font id                        */
+    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
+    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+GX_RADIAL_PROGRESS_BAR_INFO window_1_radial_progress_bar_properties =
+{
+    342,                                     /* xcenter                        */
+    129,                                     /* ycenter                        */
+    100,                                     /* radius                         */
+    -180,                                    /* current val                    */
+    90,                                      /* anchor val                     */
+    GX_FONT_ID_SYSTEM,                       /* font_id                        */
+    GX_COLOR_ID_TEXT,                        /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    20,                                      /* normal brush width             */
+    20,                                      /* selected brush width           */
+    GX_COLOR_ID_SLIDER_NEEDLE_FILL,          /* normal brush color             */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected brush color           */
+};
+
+GX_CONST GX_STUDIO_WIDGET window_1_radial_progress_bar_define =
+{
+    "radial_progress_bar",
+    GX_TYPE_RADIAL_PROGRESS_BAR,             /* widget type                    */
+    GX_ID_NONE,                              /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_PROGRESS_PERCENT|GX_STYLE_PROGRESS_TEXT_DRAW|GX_STYLE_RADIAL_PROGRESS_ALIAS|GX_STYLE_RADIAL_PROGRESS_ROUND,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_RADIAL_PROGRESS_BAR),          /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_radial_progress_bar_create,     /* create function               */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {232, 19, 452, 239},                     /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(WINDOW_1_CONTROL_BLOCK, window_1_radial_progress_bar), /* control block */
+    (void *) &window_1_radial_progress_bar_properties /* extended properties   */
+};
+
+GX_CONST GX_STUDIO_WIDGET window_1_button_2_define =
+{
+    "button_2",
+    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
+    button_200,                              /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_RAISED|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
+    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_text_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {49, 97, 128, 120},                      /* widget size                    */
+    &window_1_radial_progress_bar_define,    /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(WINDOW_1_CONTROL_BLOCK, window_1_button_2), /* control block      */
+    (void *) &window_1_button_2_properties   /* extended properties            */
+};
+
+GX_ANIMATION_INFO window_1_animation_1 = {
+    (GX_WIDGET *) &window,
+    (GX_WIDGET *) &display_1_root_window,
+    GX_NULL,
+    GX_ANIMATION_TRANSLATE, 0, 0, 1,
+    {0, 0}, {0, 0}, 255, 255, 10
+};
+
+
+GX_STUDIO_ACTION window_1__button_200_gx_event_clicked_actions[2] = {
+    {GX_ACTION_TYPE_ANIMATION, 0, &display_1_root_window, &window, &window_1_animation_1},
+    {0, 0, GX_NULL, GX_NULL, GX_NULL}
+};
+
+static GX_STUDIO_EVENT_ENTRY gx_studio_window_1_event_table[] = {
+    {GX_SIGNAL(button_200, GX_EVENT_CLICKED), 0, window_1__button_200_gx_event_clicked_actions},
+    {0, 0, GX_NULL}
+};
+
+GX_STUDIO_EVENT_PROCESS window_1_event_chain = {gx_studio_window_1_event_table, (UINT (*)(GX_WIDGET *, GX_EVENT *))gx_window_event_process};
+static UINT gx_studio_window_1_event_process(GX_WIDGET *target, GX_EVENT *event_ptr)
+{
+    return (gx_studio_auto_event_handler(target, event_ptr, &window_1_event_chain));
+}
+
+
+GX_CONST GX_STUDIO_WIDGET window_1_define =
+{
+    "window_1",
+    GX_TYPE_WINDOW,                          /* widget type                    */
+    GX_ID_NONE,                              /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED,   /* style flags                    */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(WINDOW_1_CONTROL_BLOCK),          /* control block size             */
+    GX_COLOR_ID_BTN_BORDER,                  /* normal color id                */
+    GX_COLOR_ID_BTN_BORDER,                  /* selected color id              */
+    GX_COLOR_ID_BTN_BORDER,                  /* disabled color id              */
+    gx_studio_window_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    (UINT (*)(GX_WIDGET *, GX_EVENT *)) gx_studio_window_1_event_process, /* event function override */
+    {0, 0, 479, 271},                        /* widget size                    */
+    GX_NULL,                                 /* next widget                    */
+    &window_1_button_2_define,               /* child widget                   */
+    0,                                       /* control block                  */
+    (void *) &window_1_properties            /* extended properties            */
+};
 GX_WINDOW_PROPERTIES window_properties =
 {
     0                                        /* wallpaper pixelmap id          */
@@ -541,6 +973,32 @@ GX_CONST GX_STUDIO_WIDGET window_prompt_define =
     (void *) &window_prompt_properties       /* extended properties            */
 };
 
+GX_ANIMATION_INFO window_animation_1 = {
+    (GX_WIDGET *) &window_1,
+    (GX_WIDGET *) &display_1_root_window,
+    GX_NULL,
+    GX_ANIMATION_TRANSLATE, 0, 0, 1,
+    {0, 0}, {0, 0}, 255, 255, 10
+};
+
+
+GX_STUDIO_ACTION window__button00_gx_event_clicked_actions[2] = {
+    {GX_ACTION_TYPE_ANIMATION, 0, &display_1_root_window, &window_1, &window_animation_1},
+    {0, 0, GX_NULL, GX_NULL, GX_NULL}
+};
+
+static GX_STUDIO_EVENT_ENTRY gx_studio_window_event_table[] = {
+    {GX_SIGNAL(button00, GX_EVENT_CLICKED), 0, window__button00_gx_event_clicked_actions},
+    {0, 0, GX_NULL}
+};
+
+GX_STUDIO_EVENT_PROCESS window_event_chain = {gx_studio_window_event_table, (UINT (*)(GX_WIDGET *, GX_EVENT *))_cbEventWindow0};
+static UINT gx_studio_window_event_process(GX_WIDGET *target, GX_EVENT *event_ptr)
+{
+    return (gx_studio_auto_event_handler(target, event_ptr, &window_event_chain));
+}
+
+
 GX_CONST GX_STUDIO_WIDGET window_define =
 {
     "window",
@@ -557,7 +1015,7 @@ GX_CONST GX_STUDIO_WIDGET window_define =
     GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
     gx_studio_window_create,                 /* create function                */
     GX_NULL,                                 /* drawing function override      */
-    (UINT (*)(GX_WIDGET *, GX_EVENT *)) _cbEventWindow0, /* event function override */
+    (UINT (*)(GX_WIDGET *, GX_EVENT *)) gx_studio_window_event_process, /* event function override */
     {0, 0, 479, 271},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &window_prompt_define,                   /* child widget                   */
@@ -566,6 +1024,7 @@ GX_CONST GX_STUDIO_WIDGET window_define =
 };
 GX_CONST GX_STUDIO_WIDGET_ENTRY guiapp_widget_table[] =
 {
+    { &window_1_define, (GX_WIDGET *) &window_1 },
     { &window_define, (GX_WIDGET *) &window },
     {GX_NULL, GX_NULL}
 };

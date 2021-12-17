@@ -6,7 +6,7 @@
 /*  GUIX Studio User Guide, or visit our web site at azure.com/rtos            */
 /*                                                                             */
 /*  GUIX Studio Revision 6.1.9.1                                               */
-/*  Date (dd.mm.yyyy): 17.12.2021   Time (hh:mm): 16:05                        */
+/*  Date (dd.mm.yyyy): 17.12.2021   Time (hh:mm): 16:21                        */
 /*******************************************************************************/
 
 
@@ -22,12 +22,13 @@ extern   "C" {
 
 /* Define widget ids                                                           */
 
-#define window00 1
-#define prompt00 2
-#define button00 3
-#define button01 4
-#define checkbox00 5
-#define line_chart00 6
+#define button_200 1
+#define window00 2
+#define prompt00 3
+#define button00 4
+#define button01 5
+#define checkbox00 6
+#define line_chart00 7
 
 
 /* Define animation ids                                                        */
@@ -39,6 +40,32 @@ extern   "C" {
 
 #define GX_NEXT_USER_EVENT_ID GX_FIRST_USER_EVENT
 
+#define GX_ACTION_FLAG_DYNAMIC_TARGET 0x01
+#define GX_ACTION_FLAG_DYNAMIC_PARENT 0x02
+#define GX_ACTION_FLAG_POP_TARGET     0x04
+#define GX_ACTION_FLAG_POP_PARENT     0x08
+
+typedef struct GX_STUDIO_ACTION_STRUCT
+{
+    GX_UBYTE opcode;
+    GX_UBYTE flags;
+    GX_CONST VOID *parent;
+    GX_CONST VOID *target;
+    GX_CONST GX_ANIMATION_INFO  *animation;
+} GX_STUDIO_ACTION;
+
+typedef struct GX_STUDIO_EVENT_ENTRY_STRUCT
+{
+    ULONG event_type;
+    USHORT event_sender;
+    GX_CONST GX_STUDIO_ACTION *action_list;
+} GX_STUDIO_EVENT_ENTRY;
+
+typedef struct GX_STUDIO_EVENT_PROCESS_STRUCT 
+{
+    GX_CONST GX_STUDIO_EVENT_ENTRY *event_table;
+    UINT (*chain_event_handler)(GX_WIDGET *, GX_EVENT *);
+} GX_STUDIO_EVENT_PROCESS;
 
 /* Declare properties structures for each utilized widget type                 */
 
@@ -126,6 +153,13 @@ typedef struct
 
 /* Declare top-level control blocks                                            */
 
+typedef struct WINDOW_1_CONTROL_BLOCK_STRUCT
+{
+    GX_WINDOW_MEMBERS_DECLARE
+    GX_TEXT_BUTTON window_1_button_2;
+    GX_RADIAL_PROGRESS_BAR window_1_radial_progress_bar;
+} WINDOW_1_CONTROL_BLOCK;
+
 typedef struct WINDOW_CONTROL_BLOCK_STRUCT
 {
     GX_WINDOW_MEMBERS_DECLARE
@@ -145,6 +179,7 @@ typedef struct WINDOW_CONTROL_BLOCK_STRUCT
 /* extern statically defined control blocks                                    */
 
 #ifndef GUIX_STUDIO_GENERATED_FILE
+extern WINDOW_1_CONTROL_BLOCK window_1;
 extern WINDOW_CONTROL_BLOCK window;
 #endif
 
@@ -181,6 +216,7 @@ UINT gx_studio_text_button_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *co
 UINT gx_studio_checkbox_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
 UINT gx_studio_slider_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
 UINT gx_studio_progress_bar_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
+UINT gx_studio_radial_progress_bar_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
 UINT gx_studio_prompt_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
 UINT gx_studio_window_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
 UINT gx_studio_horizontal_scrollbar_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
@@ -188,6 +224,7 @@ UINT gx_studio_line_chart_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *con
 GX_WIDGET *gx_studio_widget_create(GX_BYTE *storage, GX_CONST GX_STUDIO_WIDGET *definition, GX_WIDGET *parent);
 UINT gx_studio_named_widget_create(char *name, GX_WIDGET *parent, GX_WIDGET **new_widget);
 UINT gx_studio_display_configure(USHORT display, UINT (*driver)(GX_DISPLAY *), GX_UBYTE language, USHORT theme, GX_WINDOW_ROOT **return_root);
+UINT gx_studio_auto_event_handler(GX_WIDGET *widget, GX_EVENT *event_ptr, GX_CONST GX_STUDIO_EVENT_PROCESS *record);
 
 /* Determine if a C++ compiler is being used.  If so, complete the standard
   C conditional started above.                                                 */
