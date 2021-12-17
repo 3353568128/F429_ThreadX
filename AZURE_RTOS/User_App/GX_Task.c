@@ -42,7 +42,7 @@ void GX_Task(ULONG thread_input)
 	while(1)
 	{
 		TouchDrive();
-		tx_thread_sleep(10);
+		tx_thread_sleep(1);
 	}
 }
 
