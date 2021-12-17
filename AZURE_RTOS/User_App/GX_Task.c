@@ -56,8 +56,11 @@ void GX_TaskCreate()
 }
 
 #include "stdio.h"
+#define TEMPLEN 1
 #define GUI_ID_Timer0   10
-INT chart_data[400];
+INT chart_data[400] = {0};
+INT chart_data_buff[400] = {0};
+INT chart_data_temp[10] = {0};
 UINT _cbEventWindow0(GX_WINDOW *widget, GX_EVENT *event_ptr)
 {
 	int i;
@@ -65,12 +68,20 @@ UINT _cbEventWindow0(GX_WINDOW *widget, GX_EVENT *event_ptr)
 	char buf[20] = {0};
 	volatile int status = 0;
 
+	if((chart_data_buff[0]==0)&&(chart_data_buff[1]==0))
+	{
+		for(i = 0; i<400; i++)
+		{
+			chart_data_buff[i] = rand()%100;
+		}
+	}
+	
 	switch (event_ptr->gx_event_type)
 	{
 		/* 控件显示事件 */
 		case GX_EVENT_SHOW:
 			/* 启动一个 GUIX 定时器 */
-			gx_system_timer_start((GX_WIDGET *)widget, GUI_ID_Timer0, 1, 50);
+			gx_system_timer_start((GX_WIDGET *)widget, GUI_ID_Timer0, 1, 4);
 			/* 默认事件处理 */
 			gx_window_event_process(widget, event_ptr);
 		break;
@@ -81,10 +92,13 @@ UINT _cbEventWindow0(GX_WINDOW *widget, GX_EVENT *event_ptr)
 			{
 				sprintf(buf, "%d", count++);
 				gx_prompt_text_set((GX_PROMPT *)&(window.window_prompt_2), buf);  
-				for(i = 0; i<400; i++)
+				for(i = 0; i<TEMPLEN; i++)
 				{
-					chart_data[i] = rand()%100;
+					chart_data_temp[i] = rand()%100;
 				}
+				memcpy(chart_data, &chart_data_buff[TEMPLEN], (400-TEMPLEN)*sizeof(int));
+				memcpy(&chart_data[400-TEMPLEN], chart_data_temp, TEMPLEN*sizeof(int));
+				memcpy(chart_data_buff, chart_data, 400*sizeof(int));
 				/* 更新 Line Chart 控件 */
 				gx_line_chart_update(&(window.window_line_chart), chart_data, 400);
 			}

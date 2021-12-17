@@ -3633,9 +3633,9 @@
       </Doc>
       <Doc>
         <Name>..\AZURE_RTOS\User_App\GX_Task.c</Name>
-        <ColumnNumber>64</ColumnNumber>
-        <TopLine>64</TopLine>
-        <CurrentLine>83</CurrentLine>
+        <ColumnNumber>68</ColumnNumber>
+        <TopLine>55</TopLine>
+        <CurrentLine>84</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>

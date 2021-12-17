@@ -3,7 +3,7 @@
 <title>Static Call Graph - [AZRTOS_ThreadX\AZRTOS_ThreadX.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image AZRTOS_ThreadX\AZRTOS_ThreadX.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6140002: Last Updated: Fri Dec 17 16:21:44 2021
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6140002: Last Updated: Fri Dec 17 17:24:11 2021
 <BR><P>
 <H3>Maximum Stack Usage =       1196 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -467,7 +467,7 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_exit
 </UL>
 
-<P><STRONG><a name="[18d]"></a>rand</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, rand.o(.emb_text))
+<P><STRONG><a name="[18c]"></a>rand</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, rand.o(.emb_text))
 <BR><BR>[Called By]<UL><LI><a href="#[1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_cbEventWindow0
 </UL>
 
@@ -914,7 +914,8 @@ Global Symbols
 <P><STRONG><a name="[11c]"></a>__aeabi_memcpy4</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __aeabi_memcpy4
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm32f4_24xrgb_buffer_toggle
+<BR>[Called By]<UL><LI><a href="#[1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_cbEventWindow0
+<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm32f4_24xrgb_buffer_toggle
 <LI><a href="#[1a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_gx_canvas_drawing_initiate
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_gx_display_driver_32bpp_canvas_copy
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_memmove_w
@@ -1766,15 +1767,16 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f429xx.o(RESET)
 </UL>
-<P><STRONG><a name="[1]"></a>_cbEventWindow0</STRONG> (Thumb, 252 bytes, Stack size 48 bytes, gx_task.o(.text._cbEventWindow0))
-<BR><BR>[Stack]<UL><LI>Max Depth = 264 + Unknown Stack Size
+<P><STRONG><a name="[1]"></a>_cbEventWindow0</STRONG> (Thumb, 328 bytes, Stack size 56 bytes, gx_task.o(.text._cbEventWindow0))
+<BR><BR>[Stack]<UL><LI>Max Depth = 272 + Unknown Stack Size
 <LI>Call Chain = _cbEventWindow0 &rArr; _gxe_window_event_process &rArr; _gx_window_event_process &rArr; _gx_widget_shift &rArr; _gx_system_event_fold &rArr; _gx_system_event_send &rArr; _gx_system_pen_flick_test &rArr; _tx_queue_send &rArr; _tx_thread_system_resume
 </UL>
 <BR>[Calls]<UL><LI><a href="#[0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_gxe_window_event_process
 <LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_gxe_system_timer_start
-<LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_gxe_prompt_text_set
+<LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_gxe_prompt_text_set
 <LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_gxe_line_chart_update
-<LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rand
+<LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
+<LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rand
 <LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> guiapp_specifications.o(.data.window_event_chain)
@@ -2811,10 +2813,10 @@ Global Symbols
 <LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_gx_widget_create
 <LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_gx_button_create
 <LI><a href="#[1c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_gx_utility_rectangle_define
+<LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_gx_scroll_thumb_create
 <LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_gx_widget_fill_color_set
 <LI><a href="#[20d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_gx_widget_child_clipping_update
 <LI><a href="#[20a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_gx_system_scroll_appearance_get
-<LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_gx_scroll_thumb_create
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_gxe_horizontal_scrollbar_create
 </UL>
@@ -3116,7 +3118,7 @@ Global Symbols
 <LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_gx_utility_string_length_check
 <LI><a href="#[239]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_gx_system_private_string_copy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_gxe_prompt_text_set
+<BR>[Called By]<UL><LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_gxe_prompt_text_set
 </UL>
 
 <P><STRONG><a name="[23a]"></a>_gx_radial_progress_bar_background_draw</STRONG> (Thumb, 600 bytes, Stack size 104 bytes, gx_radial_progress_bar_background_draw.o(.text._gx_radial_progress_bar_background_draw))
@@ -5078,7 +5080,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gx_studio_prompt_create
 </UL>
 
-<P><STRONG><a name="[18c]"></a>_gxe_prompt_text_set</STRONG> (Thumb, 74 bytes, Stack size 0 bytes, gxe_prompt_text_set.o(.text._gxe_prompt_text_set))
+<P><STRONG><a name="[18d]"></a>_gxe_prompt_text_set</STRONG> (Thumb, 74 bytes, Stack size 0 bytes, gxe_prompt_text_set.o(.text._gxe_prompt_text_set))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = _gxe_prompt_text_set &rArr; _gx_prompt_text_set &rArr; _gx_system_private_string_copy
 </UL>
 <BR>[Calls]<UL><LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_gx_prompt_text_set
@@ -5456,8 +5458,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[2cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_tx_thread_system_resume
 </UL>
-<BR>[Address Reference Count : 2]<UL><LI> tx_mutex_cleanup.o(.text._tx_mutex_cleanup)
-<LI> tx_mutex_get.o(.text._tx_mutex_get)
+<BR>[Address Reference Count : 2]<UL><LI> tx_mutex_get.o(.text._tx_mutex_get)
+<LI> tx_mutex_cleanup.o(.text._tx_mutex_cleanup)
 </UL>
 <P><STRONG><a name="[26f]"></a>_tx_mutex_create</STRONG> (Thumb, 106 bytes, Stack size 16 bytes, tx_mutex_create.o(.text._tx_mutex_create))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = _tx_mutex_create &rArr; __aeabi_memclr4
