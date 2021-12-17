@@ -6,7 +6,7 @@
 /*  GUIX Studio User Guide, or visit our web site at azure.com/rtos            */
 /*                                                                             */
 /*  GUIX Studio Revision 6.1.9.1                                               */
-/*  Date (dd.mm.yyyy): 17.12.2021   Time (hh:mm): 14:11                        */
+/*  Date (dd.mm.yyyy): 17.12.2021   Time (hh:mm): 16:05                        */
 /*******************************************************************************/
 
 
@@ -136,20 +136,6 @@ UINT gx_studio_progress_bar_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *c
     return status;
 }
 
-UINT gx_studio_radial_progress_bar_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent)
-{
-    UINT status;
-    GX_RADIAL_PROGRESS_BAR *bar = (GX_RADIAL_PROGRESS_BAR *) control_block;
-    GX_RADIAL_PROGRESS_BAR_INFO *bar_info = (GX_RADIAL_PROGRESS_BAR_INFO *) info->properties;
-    status = gx_radial_progress_bar_create(bar,
-                    info->widget_name,
-                    parent,
-                    bar_info,
-                    info->style,
-                    info->widget_id);
-    return status;
-}
-
 UINT gx_studio_prompt_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent)
 {
     UINT status;
@@ -192,6 +178,16 @@ UINT gx_studio_horizontal_scrollbar_create(GX_CONST GX_STUDIO_WIDGET *info, GX_W
     status = gx_horizontal_scrollbar_create(scroll, info->widget_name, parent, appearance, info->style);
     return status;
 }
+
+UINT gx_studio_line_chart_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent)
+{
+    UINT status;
+    GX_LINE_CHART *chart = (GX_LINE_CHART *) control_block;
+    GX_LINE_CHART_INFO *chart_info = (GX_LINE_CHART_INFO *) info->properties;
+
+    status = gx_line_chart_create(chart, info->widget_name, parent, chart_info, info->style, info->widget_id, &info->size);
+    return status;
+}
 GX_WINDOW_PROPERTIES window_properties =
 {
     0                                        /* wallpaper pixelmap id          */
@@ -227,22 +223,6 @@ GX_TEXT_BUTTON_PROPERTIES window_button_1_properties =
     GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
     GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
     GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
-};
-GX_RADIAL_PROGRESS_BAR_INFO window_radial_progress_bar_properties =
-{
-    362,                                     /* xcenter                        */
-    129,                                     /* ycenter                        */
-    100,                                     /* radius                         */
-    -180,                                    /* current val                    */
-    90,                                      /* anchor val                     */
-    GX_FONT_ID_SYSTEM,                       /* font_id                        */
-    GX_COLOR_ID_TEXT,                        /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
-    20,                                      /* normal brush width             */
-    20,                                      /* selected brush width           */
-    GX_COLOR_ID_SLIDER_NEEDLE_FILL,          /* normal brush color             */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected brush color           */
 };
 GX_PROGRESS_BAR_INFO window_progress_bar_properties =
 {
@@ -296,6 +276,78 @@ GX_SLIDER_PROPERTIES window_slider_properties =
     5,                                       /* needle inset                   */
     2                                        /* needle hotspot                 */
 };
+GX_PROMPT_PROPERTIES window_prompt_2_properties =
+{
+    GX_STRING_ID_STRING_1,                   /* string id                      */
+    GX_FONT_ID_PROMPT,                       /* font id                        */
+    GX_COLOR_ID_TEXT,                        /* normal text color              */
+    GX_COLOR_ID_TEXT,                        /* selected text color            */
+    GX_COLOR_ID_TEXT                         /* disabled text color            */
+};
+GX_LINE_CHART_INFO window_line_chart_properties =
+{
+    0,                                       /* min data value                 */
+    100,                                     /* max data value                 */
+    GX_NULL,                                 /* data pointer                   */
+    0,                                       /* left margin                    */
+    0,                                       /* top margin                     */
+    0,                                       /* right margin                   */
+    0,                                       /* bottom margin                  */
+    100,                                     /* max data items                 */
+    0,                                       /* active data items              */
+    3,                                       /* axis line width                */
+    2,                                       /* data line width                */
+    GX_COLOR_ID_DEFAULT_BORDER,              /* axis line color                */
+    GX_COLOR_ID_SHINE                        /* data line color                */
+};
+
+GX_CONST GX_STUDIO_WIDGET window_line_chart_define =
+{
+    "line_chart",
+    GX_TYPE_LINE_CHART,                      /* widget type                    */
+    line_chart00,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN,                    /* style flags                    */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_LINE_CHART),                   /* control block size             */
+    GX_COLOR_ID_WINDOW_FILL,                 /* normal color id                */
+    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_line_chart_create,             /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {228, 26, 467, 161},                     /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(WINDOW_CONTROL_BLOCK, window_line_chart), /* control block        */
+    (void *) &window_line_chart_properties   /* extended properties            */
+};
+
+GX_CONST GX_STUDIO_WIDGET window_prompt_2_define =
+{
+    "prompt_2",
+    GX_TYPE_PROMPT,                          /* widget type                    */
+    GX_ID_NONE,                              /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_COPY|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PROMPT),                       /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_prompt_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {207, 209, 286, 232},                    /* widget size                    */
+    &window_line_chart_define,               /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(WINDOW_CONTROL_BLOCK, window_prompt_2), /* control block          */
+    (void *) &window_prompt_2_properties     /* extended properties            */
+};
 
 GX_CONST GX_STUDIO_WIDGET window_slider_define =
 {
@@ -315,7 +367,7 @@ GX_CONST GX_STUDIO_WIDGET window_slider_define =
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
     {1, 206, 196, 229},                      /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
+    &window_prompt_2_define,                 /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(WINDOW_CONTROL_BLOCK, window_slider), /* control block            */
     (void *) &window_slider_properties       /* extended properties            */
@@ -325,7 +377,7 @@ GX_CONST GX_STUDIO_WIDGET window_checkbox_define =
 {
     "checkbox",
     GX_TYPE_CHECKBOX,                        /* widget type                    */
-    GX_ID_NONE,                              /* widget id                      */
+    checkbox00,                              /* widget id                      */
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
@@ -393,30 +445,6 @@ GX_CONST GX_STUDIO_WIDGET window_progress_bar_define =
     (void *) &window_progress_bar_properties /* extended properties            */
 };
 
-GX_CONST GX_STUDIO_WIDGET window_radial_progress_bar_define =
-{
-    "radial_progress_bar",
-    GX_TYPE_RADIAL_PROGRESS_BAR,             /* widget type                    */
-    GX_ID_NONE,                              /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_PROGRESS_PERCENT|GX_STYLE_PROGRESS_TEXT_DRAW|GX_STYLE_RADIAL_PROGRESS_ALIAS|GX_STYLE_RADIAL_PROGRESS_ROUND,   /* style flags */
-    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_RADIAL_PROGRESS_BAR),          /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_radial_progress_bar_create,     /* create function               */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {252, 19, 472, 239},                     /* widget size                    */
-    &window_progress_bar_define,             /* next widget definition         */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(WINDOW_CONTROL_BLOCK, window_radial_progress_bar), /* control block */
-    (void *) &window_radial_progress_bar_properties /* extended properties     */
-};
-
 GX_CONST GX_STUDIO_WIDGET window_button_1_define =
 {
     "button_1",
@@ -435,7 +463,7 @@ GX_CONST GX_STUDIO_WIDGET window_button_1_define =
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
     {1, 149, 80, 172},                       /* widget size                    */
-    &window_radial_progress_bar_define,      /* next widget definition         */
+    &window_progress_bar_define,             /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(WINDOW_CONTROL_BLOCK, window_button_1), /* control block          */
     (void *) &window_button_1_properties     /* extended properties            */
@@ -473,16 +501,16 @@ GX_CONST GX_STUDIO_WIDGET window_prompt_1_define =
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STYLE_BORDER_THIN|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_COPY|GX_STYLE_TEXT_CENTER,   /* style flags */
     GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
     sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_WINDOW_FILL,                 /* normal color id                */
+    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
     GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
     gx_studio_prompt_create,                 /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {119, 78, 198, 101},                     /* widget size                    */
+    {120, 78, 199, 101},                     /* widget size                    */
     &window_button_define,                   /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(WINDOW_CONTROL_BLOCK, window_prompt_1), /* control block          */
@@ -497,12 +525,12 @@ GX_CONST GX_STUDIO_WIDGET window_prompt_define =
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STYLE_BORDER_THIN|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_COPY|GX_STYLE_TEXT_CENTER,   /* style flags */
     GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
     sizeof(GX_PROMPT),                       /* control block size             */
     GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    GX_COLOR_ID_WIDGET_FILL,                 /* selected color id              */
+    GX_COLOR_ID_WIDGET_FILL,                 /* disabled color id              */
     gx_studio_prompt_create,                 /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
@@ -529,7 +557,7 @@ GX_CONST GX_STUDIO_WIDGET window_define =
     GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
     gx_studio_window_create,                 /* create function                */
     GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
+    (UINT (*)(GX_WIDGET *, GX_EVENT *)) _cbEventWindow0, /* event function override */
     {0, 0, 479, 271},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &window_prompt_define,                   /* child widget                   */

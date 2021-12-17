@@ -48,4 +48,5 @@ azrtos_threadx/gx_task.o: ..\AZURE_RTOS\User_App\GX_Task.c \
   ..\Middlewares\ST\GuiX\common\inc\gx_display.h \
   ..\Middlewares\ST\GuiX\common\inc\gx_utility.h ..\BSP\touch_480x272.h \
   ..\BSP\touch_iic.h ..\GUIX_Studio\guiapp_specifications.h \
-  ..\GUIX_Studio\guiapp_resources.h
+  ..\GUIX_Studio\guiapp_resources.h \
+  D:\keil\ 5\ARM\ARMCLANG\Bin\..\include\stdio.h

@@ -6,7 +6,7 @@
 /*  GUIX Studio User Guide, or visit our web site at azure.com/rtos            */
 /*                                                                             */
 /*  GUIX Studio Revision 6.1.9.1                                               */
-/*  Date (dd.mm.yyyy): 17.12.2021   Time (hh:mm): 14:11                        */
+/*  Date (dd.mm.yyyy): 17.12.2021   Time (hh:mm): 16:05                        */
 /*******************************************************************************/
 
 
@@ -26,6 +26,8 @@ extern   "C" {
 #define prompt00 2
 #define button00 3
 #define button01 4
+#define checkbox00 5
+#define line_chart00 6
 
 
 /* Define animation ids                                                        */
@@ -131,11 +133,12 @@ typedef struct WINDOW_CONTROL_BLOCK_STRUCT
     GX_PROMPT window_prompt_1;
     GX_TEXT_BUTTON window_button;
     GX_TEXT_BUTTON window_button_1;
-    GX_RADIAL_PROGRESS_BAR window_radial_progress_bar;
     GX_PROGRESS_BAR window_progress_bar;
     GX_SCROLLBAR window_hscroll;
     GX_CHECKBOX window_checkbox;
     GX_SLIDER window_slider;
+    GX_PROMPT window_prompt_2;
+    GX_LINE_CHART window_line_chart;
 } WINDOW_CONTROL_BLOCK;
 
 
@@ -147,6 +150,7 @@ extern WINDOW_CONTROL_BLOCK window;
 
 /* Declare event process functions, draw functions, and callback functions     */
 
+UINT _cbEventWindow0(GX_WINDOW *widget, GX_EVENT *event_ptr);
 
 /* Declare the GX_STUDIO_DISPLAY_INFO structure                                */
 
@@ -177,10 +181,10 @@ UINT gx_studio_text_button_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *co
 UINT gx_studio_checkbox_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
 UINT gx_studio_slider_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
 UINT gx_studio_progress_bar_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
-UINT gx_studio_radial_progress_bar_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
 UINT gx_studio_prompt_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
 UINT gx_studio_window_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
 UINT gx_studio_horizontal_scrollbar_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
+UINT gx_studio_line_chart_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
 GX_WIDGET *gx_studio_widget_create(GX_BYTE *storage, GX_CONST GX_STUDIO_WIDGET *definition, GX_WIDGET *parent);
 UINT gx_studio_named_widget_create(char *name, GX_WIDGET *parent, GX_WIDGET **new_widget);
 UINT gx_studio_display_configure(USHORT display, UINT (*driver)(GX_DISPLAY *), GX_UBYTE language, USHORT theme, GX_WINDOW_ROOT **return_root);
