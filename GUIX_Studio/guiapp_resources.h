@@ -5,8 +5,8 @@
 /*  resource file(s). For more information please refer to the Azure RTOS GUIX */
 /*  Studio User Guide, or visit our web site at azure.com/rtos                 */
 /*                                                                             */
-/*  GUIX Studio Revision 6.1.9.1                                               */
-/*  Date (dd.mm.yyyy): 17.12.2021   Time (hh:mm): 16:21                        */
+/*  GUIX Studio Revision 6.1.9.2                                               */
+/*  Date (dd.mm.yyyy): 20.12.2021   Time (hh:mm): 14:32                        */
 /*******************************************************************************/
 
 
@@ -39,7 +39,28 @@
 
 /* Pixelmap ID definitions                                                     */
 
-#define DISPLAY_1_PIXELMAP_TABLE_SIZE 5
+#define GX_PIXELMAP_ID_ADC 5
+#define GX_PIXELMAP_ID_BK 6
+#define GX_PIXELMAP_ID_CAMERA 7
+#define GX_PIXELMAP_ID_CAN 8
+#define GX_PIXELMAP_ID_CLOCK 9
+#define GX_PIXELMAP_ID_COMPUTER 10
+#define GX_PIXELMAP_ID_DAC 11
+#define GX_PIXELMAP_ID_FM 12
+#define GX_PIXELMAP_ID_GPRS 13
+#define GX_PIXELMAP_ID_GPS 14
+#define GX_PIXELMAP_ID_MPU 15
+#define GX_PIXELMAP_ID_MUSIC 16
+#define GX_PIXELMAP_ID_NET 17
+#define GX_PIXELMAP_ID_PIC 18
+#define GX_PIXELMAP_ID_READER 19
+#define GX_PIXELMAP_ID_RECORDER 20
+#define GX_PIXELMAP_ID_SYSTEM 21
+#define GX_PIXELMAP_ID_USB 22
+#define GX_PIXELMAP_ID_VIDEO 23
+#define GX_PIXELMAP_ID_WIFI 24
+#define GX_PIXELMAP_ID_WIRELESS 25
+#define DISPLAY_1_PIXELMAP_TABLE_SIZE 26
 
 /* String Ids                                                                  */
 

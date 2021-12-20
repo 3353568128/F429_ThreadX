@@ -5,8 +5,8 @@
 /*  specification file(s). For more information please refer to the Azure RTOS */
 /*  GUIX Studio User Guide, or visit our web site at azure.com/rtos            */
 /*                                                                             */
-/*  GUIX Studio Revision 6.1.9.1                                               */
-/*  Date (dd.mm.yyyy): 17.12.2021   Time (hh:mm): 16:21                        */
+/*  GUIX Studio Revision 6.1.9.2                                               */
+/*  Date (dd.mm.yyyy): 20.12.2021   Time (hh:mm): 14:32                        */
 /*******************************************************************************/
 
 
@@ -22,13 +22,8 @@ extern   "C" {
 
 /* Define widget ids                                                           */
 
-#define button_200 1
+#define window01 1
 #define window00 2
-#define prompt00 3
-#define button00 4
-#define button01 5
-#define checkbox00 6
-#define line_chart00 7
 
 
 /* Define animation ids                                                        */
@@ -40,32 +35,6 @@ extern   "C" {
 
 #define GX_NEXT_USER_EVENT_ID GX_FIRST_USER_EVENT
 
-#define GX_ACTION_FLAG_DYNAMIC_TARGET 0x01
-#define GX_ACTION_FLAG_DYNAMIC_PARENT 0x02
-#define GX_ACTION_FLAG_POP_TARGET     0x04
-#define GX_ACTION_FLAG_POP_PARENT     0x08
-
-typedef struct GX_STUDIO_ACTION_STRUCT
-{
-    GX_UBYTE opcode;
-    GX_UBYTE flags;
-    GX_CONST VOID *parent;
-    GX_CONST VOID *target;
-    GX_CONST GX_ANIMATION_INFO  *animation;
-} GX_STUDIO_ACTION;
-
-typedef struct GX_STUDIO_EVENT_ENTRY_STRUCT
-{
-    ULONG event_type;
-    USHORT event_sender;
-    GX_CONST GX_STUDIO_ACTION *action_list;
-} GX_STUDIO_EVENT_ENTRY;
-
-typedef struct GX_STUDIO_EVENT_PROCESS_STRUCT 
-{
-    GX_CONST GX_STUDIO_EVENT_ENTRY *event_table;
-    UINT (*chain_event_handler)(GX_WIDGET *, GX_EVENT *);
-} GX_STUDIO_EVENT_PROCESS;
 
 /* Declare properties structures for each utilized widget type                 */
 
@@ -101,49 +70,10 @@ typedef struct
 
 typedef struct
 {
-    GX_RESOURCE_ID string_id; 
-    GX_RESOURCE_ID font_id;
-    GX_RESOURCE_ID normal_text_color_id;
-    GX_RESOURCE_ID selected_text_color_id;
-    GX_RESOURCE_ID disabled_text_color_id;
-} GX_TEXT_BUTTON_PROPERTIES;
-
-typedef struct
-{
-    GX_RESOURCE_ID string_id; 
-    GX_RESOURCE_ID font_id;
-    GX_RESOURCE_ID normal_text_color_id;
-    GX_RESOURCE_ID selected_text_color_id;
-    GX_RESOURCE_ID disabled_text_color_id;
-    GX_RESOURCE_ID unchecked_pixelmap_id;
-    GX_RESOURCE_ID checked_pixelmap_id;
-    GX_RESOURCE_ID unchecked_disabled_pixelmap_id;
-    GX_RESOURCE_ID checked_disabled_pixelmap_id;
-} GX_CHECKBOX_PROPERTIES;
-
-typedef struct
-{
-    int tickmark_count;
-    int minval;
-    int maxval;
-    int current_val;
-    int increment;
-    GX_VALUE min_travel;
-    GX_VALUE max_travel;
-    GX_VALUE needle_width;
-    GX_VALUE needle_height;
-    GX_VALUE needle_inset;
-    GX_VALUE needle_hotspot;
-} GX_SLIDER_PROPERTIES;
-
-typedef struct
-{
-    GX_RESOURCE_ID string_id;
-    GX_RESOURCE_ID font_id;
-    GX_RESOURCE_ID normal_text_color_id;
-    GX_RESOURCE_ID selected_text_color_id;
-    GX_RESOURCE_ID disabled_text_color_id;
-} GX_PROMPT_PROPERTIES;
+    GX_RESOURCE_ID normal_pixelmap_id;
+    GX_RESOURCE_ID selected_pixelmap_id;
+    GX_RESOURCE_ID disabled_pixelmap_id;
+} GX_PIXELMAP_BUTTON_PROPERTIES;
 
 typedef struct
 {
@@ -153,39 +83,53 @@ typedef struct
 
 /* Declare top-level control blocks                                            */
 
+typedef struct WINDOW_2_CONTROL_BLOCK_STRUCT
+{
+    GX_WINDOW_MEMBERS_DECLARE
+    GX_PIXELMAP_BUTTON window_2_pixelmap_button_12;
+    GX_PIXELMAP_BUTTON window_2_pixelmap_button_12_1;
+    GX_PIXELMAP_BUTTON window_2_pixelmap_button_12_2;
+    GX_PIXELMAP_BUTTON window_2_pixelmap_button_12_3;
+    GX_PIXELMAP_BUTTON window_2_pixelmap_button_12_4;
+    GX_PIXELMAP_BUTTON window_2_pixelmap_button_12_5;
+    GX_PIXELMAP_BUTTON window_2_pixelmap_button_12_6;
+    GX_PIXELMAP_BUTTON window_2_pixelmap_button_12_7;
+} WINDOW_2_CONTROL_BLOCK;
+
 typedef struct WINDOW_1_CONTROL_BLOCK_STRUCT
 {
     GX_WINDOW_MEMBERS_DECLARE
-    GX_TEXT_BUTTON window_1_button_2;
-    GX_RADIAL_PROGRESS_BAR window_1_radial_progress_bar;
+    GX_PIXELMAP_BUTTON window_1_pixelmap_button;
+    GX_PIXELMAP_BUTTON window_1_pixelmap_button_1;
+    GX_PIXELMAP_BUTTON window_1_pixelmap_button_2;
+    GX_PIXELMAP_BUTTON window_1_pixelmap_button_3;
+    GX_PIXELMAP_BUTTON window_1_pixelmap_button_4;
+    GX_PIXELMAP_BUTTON window_1_pixelmap_button_5;
+    GX_PIXELMAP_BUTTON window_1_pixelmap_button_6;
+    GX_PIXELMAP_BUTTON window_1_pixelmap_button_7;
+    GX_PIXELMAP_BUTTON window_1_pixelmap_button_8;
+    GX_PIXELMAP_BUTTON window_1_pixelmap_button_9;
+    GX_PIXELMAP_BUTTON window_1_pixelmap_button_10;
+    GX_PIXELMAP_BUTTON window_1_pixelmap_button_11;
 } WINDOW_1_CONTROL_BLOCK;
 
 typedef struct WINDOW_CONTROL_BLOCK_STRUCT
 {
     GX_WINDOW_MEMBERS_DECLARE
-    GX_PROMPT window_prompt;
-    GX_PROMPT window_prompt_1;
-    GX_TEXT_BUTTON window_button;
-    GX_TEXT_BUTTON window_button_1;
-    GX_PROGRESS_BAR window_progress_bar;
-    GX_SCROLLBAR window_hscroll;
-    GX_CHECKBOX window_checkbox;
-    GX_SLIDER window_slider;
-    GX_PROMPT window_prompt_2;
-    GX_LINE_CHART window_line_chart;
 } WINDOW_CONTROL_BLOCK;
 
 
 /* extern statically defined control blocks                                    */
 
 #ifndef GUIX_STUDIO_GENERATED_FILE
+extern WINDOW_2_CONTROL_BLOCK window_2;
 extern WINDOW_1_CONTROL_BLOCK window_1;
 extern WINDOW_CONTROL_BLOCK window;
 #endif
 
 /* Declare event process functions, draw functions, and callback functions     */
 
-UINT _cbEventWindow0(GX_WINDOW *widget, GX_EVENT *event_ptr);
+UINT slide_win_event_process(GX_WINDOW *widget, GX_EVENT *event_ptr);
 
 /* Declare the GX_STUDIO_DISPLAY_INFO structure                                */
 
@@ -212,19 +156,11 @@ typedef struct GX_STUDIO_DISPLAY_INFO_STRUCT
 
 /* Declare Studio-generated functions for creating top-level widgets           */
 
-UINT gx_studio_text_button_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
-UINT gx_studio_checkbox_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
-UINT gx_studio_slider_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
-UINT gx_studio_progress_bar_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
-UINT gx_studio_radial_progress_bar_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
-UINT gx_studio_prompt_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
+UINT gx_studio_pixelmap_button_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
 UINT gx_studio_window_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
-UINT gx_studio_horizontal_scrollbar_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
-UINT gx_studio_line_chart_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
 GX_WIDGET *gx_studio_widget_create(GX_BYTE *storage, GX_CONST GX_STUDIO_WIDGET *definition, GX_WIDGET *parent);
 UINT gx_studio_named_widget_create(char *name, GX_WIDGET *parent, GX_WIDGET **new_widget);
 UINT gx_studio_display_configure(USHORT display, UINT (*driver)(GX_DISPLAY *), GX_UBYTE language, USHORT theme, GX_WINDOW_ROOT **return_root);
-UINT gx_studio_auto_event_handler(GX_WIDGET *widget, GX_EVENT *event_ptr, GX_CONST GX_STUDIO_EVENT_PROCESS *record);
 
 /* Determine if a C++ compiler is being used.  If so, complete the standard
   C conditional started above.                                                 */
